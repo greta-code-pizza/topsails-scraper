@@ -3,21 +3,13 @@ require "open-uri"
 require "pry"
 require "sqlite3"
 
+require "./lib/yacht_sanitizer"
+require "./lib/yacht"
+
 url = "https://greta-code-pizza.github.io/topsails/"
 html = URI.open(url)
 app = Nokogiri::HTML(html)
 db = SQLite3::Database.new("yachtDB.db")
-
-class YachtSanitizer
-end
-
-class Yacht
-  CONDITIONS = {
-    "bon" => 0,
-    "très bon" => 1,
-    "excellent" => 2 
-  }
-end
 
 yachts = app.css('.card-boat')
 
@@ -57,6 +49,3 @@ yachts.each do |yacht|
 
   db.execute("INSERT OR IGNORE INTO yacht VALUES (:label, :price, :year, :loa, :boa, :condition)", sanitized_data)
 end 
-
-
-# binding.pry
