@@ -38,6 +38,19 @@ yachts.each do |yacht|
       condition.children.text.include?(k) 
     end
 
+  # PREVIOUS DATA version :
+  #
+  # condition_val = Yacht::CONDITIONS[condition_key]
+  #
+  # data = {
+  #   "label" => label,
+  #   "price" => price,
+  #   "year" => year,
+  #   "loa" => loa,
+  #   "boa" => boa,
+  #   "condition" => condition_val
+  # }
+
   sanitized_data = 
     YachtSanitizer.new(
       label: label,
