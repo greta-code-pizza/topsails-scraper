@@ -53,7 +53,7 @@ yachts.each do |yacht|
       loa: loa,
       boa: boa,
       condition: condition_key
-    )
+    ).to_h
 
   db.execute("INSERT OR IGNORE INTO yacht VALUES (:label, :price, :year, :loa, :boa, :condition)", sanitized_data)
 end 
