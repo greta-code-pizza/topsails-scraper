@@ -8,26 +8,6 @@ html = URI.open(url)
 app = Nokogiri::HTML(html)
 db = SQLite3::Database.new("yachtDB.db")
 
-
-# class YachtSanitizer
-#   def initialize(:label, :price)
-#     return unless valid?(label, price)
-
-#     @label = label
-#     @price = price
-#   end
-
-#   def call
-#     {
-
-#     }
-#   end
-
-#   def valid?(label, price)
-#     # ...
-#   end
-# end
-
 class YachtSanitizer
 end
 
@@ -65,19 +45,17 @@ yachts.each do |yacht|
       condition.children.text.include?(k) 
     end
 
-  # condition.children.text.include?("très bon")
-  condition_val = Yacht::CONDITIONS[condition_key]
+  sanitized_data = 
+    YachtSanitizer.new(
+      label: label,
+      price: price,
+      year: year,
+      loa: loa,
+      boa: boa,
+      condition: condition_key
+    )
 
-  data = {
-    "label" => label,
-    "price" => price,
-    "year" => year,
-    "loa" => loa,
-    "boa" => boa,
-    "condition" => condition_val
-  }
-
-  db.execute("INSERT OR IGNORE INTO yacht VALUES (:label, :price, :year, :loa, :boa, :condition)", data)
+  db.execute("INSERT OR IGNORE INTO yacht VALUES (:label, :price, :year, :loa, :boa, :condition)", sanitized_data)
 end 
 
 
