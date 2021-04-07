@@ -1,3 +1,4 @@
+require "pry"
 Dir['lib/*.rb'].each { |path| require "./#{path}" }
 
 RSpec.configure do |config|
