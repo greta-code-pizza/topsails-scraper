@@ -17,7 +17,7 @@ yachts.each do |yacht|
   label = yacht.css("h4").children.text
 
   price = yacht.css(".price").children.text
-  price = price.split("€").first.tr(' ', '').to_i
+  # price = price.split("€").first.tr(' ', '').to_i
 
   properties = yacht.css(".property")
 
@@ -26,8 +26,9 @@ yachts.each do |yacht|
   year = properties.first.css('.badge').text
 
   # delete_suffix("m") meilleur que .text[0..-2]
-  loa = properties[1].css('.badge').text[0..-2].to_f
-  boa = properties.last.css('.badge').text.delete_suffix("m").to_f
+  # ex : boa = properties.last.css('.badge').text.delete_suffix("m").to_f
+  loa = properties[1].css('.badge').text
+  boa = properties.last.css('.badge').text
 
   condition = yacht.css(".card-text")
 
